@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration files in general,                    -->
+<!--    please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- For professional support please see http://www.qos.ch/shop/products/professionalSupport            -->
+<!-- Base logback configuration provided for compatibility with ecsplatform like Spring boot.           -->
+<included>
+
+    <!--初始化-预制的日志appender-->
+    <include resource="logging/logback-base.xml"/>
+
+    <appender name="infoFileOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/info.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/info_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>info:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="errorFileOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!--        滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${file_log_app_history_home}/error_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--日志文件最大的大小-->
+            <MaxFileSize>5MB</MaxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>error:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+
+    <appender name="appFileOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/app/info.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/app/info_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>info:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <springProfile name="default">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="infoFileOutput"/>
+            <appender-ref ref="errorFileOutput"/>
+        </root>
+
+        <logger name="app">
+            <appender-ref ref="appFileOutput"/>
+        </logger>
+
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
+
+
+</included>
