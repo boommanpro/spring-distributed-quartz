@@ -26,6 +26,9 @@ http://localhost:8080/api/jobs
 
 ## 展示:
 
+![back-job](https://github.com/BoomManPro/spring-distributed-quartz/blob/master/images/back-job.png?raw=true)
+
+![back-log](https://github.com/BoomManPro/spring-distributed-quartz/blob/master/images/back-log.png?raw=true)
 
 
 
