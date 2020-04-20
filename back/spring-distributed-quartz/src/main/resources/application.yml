@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    password: 123456
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/db_quartz?characterEncoding=utf-8&serverTimeZone=GMT%2B8
+    driver-class-name: com.mysql.jdbc.Driver
+
+  quartz:
+    job-store-type: jdbc
+  jpa:
+    show-sql: true
+
+db:
+  quartz:
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/db_quartz?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
