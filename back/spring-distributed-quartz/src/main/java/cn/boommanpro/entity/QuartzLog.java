@@ -1,14 +1,12 @@
 package cn.boommanpro.entity;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import javax.persistence.*;
+
 import cn.boommanpro.web.serializer.LocalDateTime2LongSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import javax.persistence.*;
 
 /**
  * @author <a href="mailto:boommanpro@gmail.com">BoomManPro</a>
@@ -19,6 +17,8 @@ import javax.persistence.*;
 @Data
 @Table(name = "quartz_log")
 public class QuartzLog implements Serializable {
+
+    public static final String CREATE_TIME_JAP_COLUMN = "createTime";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

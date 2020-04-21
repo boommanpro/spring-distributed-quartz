@@ -1,5 +1,6 @@
 package cn.boommanpro.web.controller;
 
+import cn.boommanpro.annotation.SortField;
 import cn.boommanpro.common.PageForm;
 import cn.boommanpro.common.PageVo;
 import cn.boommanpro.common.ResultVo;
@@ -13,6 +14,7 @@ import cn.boommanpro.service.query.QuartzJobQueryService;
 import cn.boommanpro.service.query.QuartzLogQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +53,9 @@ public class QuartzJobController {
      * @return
      */
     @GetMapping(value = "/jobLogs")
-    public ResultVo<PageVo<QuartzLog>> getJobLogs(QuartzLogQueryForm form, PageForm pageable) {
+    public ResultVo<PageVo<QuartzLog>> getJobLogs(QuartzLogQueryForm form,
+                                                  @SortField(sort = QuartzLog.CREATE_TIME_JAP_COLUMN, direction = Sort.Direction.DESC)
+                                                          PageForm pageable) {
         return ResultVo.success(quartzLogQueryService.queryAll(form, pageable));
     }
 
@@ -71,6 +75,7 @@ public class QuartzJobController {
 
     /**
      * 暂停
+     *
      * @param id 任务id
      * @return vo success
      */

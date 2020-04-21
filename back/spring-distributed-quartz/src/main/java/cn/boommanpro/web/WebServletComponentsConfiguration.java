@@ -9,14 +9,14 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author boommanpro
  * @date 2020/3/16 19:44
  */
 @Configuration
-public class WebServletComponentsConfiguration extends WebMvcConfigurationSupport {
+public class WebServletComponentsConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private JpaSortsMethodArgumentResolver jpaSortsMethodArgumentResolver;
@@ -29,9 +29,10 @@ public class WebServletComponentsConfiguration extends WebMvcConfigurationSuppor
         return registrationBean;
     }
 
+
+
     @Override
-    protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(jpaSortsMethodArgumentResolver);
-        super.addArgumentResolvers(argumentResolvers);
     }
 }
