@@ -5,6 +5,7 @@ import cn.boommanpro.common.GetScheduleTimeOfCron;
 import cn.boommanpro.common.PageForm;
 import cn.boommanpro.common.ResultVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BackController {
 
     @GetMapping("pageForm")
-    public ResultVo<PageForm> pageForm(@SortField("id") PageForm page) {
+    public ResultVo<PageForm> pageForm(@SortField(sort = {"id","key"},direction = Sort.Direction.DESC) PageForm page) {
         log.info("Page:[{}]", page);
         return ResultVo.success(page);
     }

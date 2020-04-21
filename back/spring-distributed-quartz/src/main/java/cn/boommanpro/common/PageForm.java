@@ -25,8 +25,11 @@ public class PageForm extends PageRequest {
         super(0, 10, Sort.unsorted());
     }
 
-    public PageForm(int pageNum, int pageSize) {
-        super(pageNum - 1, pageSize, Sort.unsorted());
+    public PageForm(int pageNum, int pageSize,Sort sort) {
+        super(pageNum - 1, pageSize, sort);
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.sort = sort;
     }
 
     @Override

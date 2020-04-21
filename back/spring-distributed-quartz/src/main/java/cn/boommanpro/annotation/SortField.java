@@ -14,13 +14,6 @@ import org.springframework.data.domain.Sort;
 public @interface SortField {
 
     /**
-     * Alias for {@link #sort()} to make a declaration configuring fields only more concise.
-     *
-     * @return
-     */
-    String[] value() default {};
-
-    /**
      * The properties to sort by by default. If unset, no sorting will be applied at all.
      *
      * @return

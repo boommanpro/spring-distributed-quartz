@@ -1,16 +1,25 @@
 package cn.boommanpro.web;
 
+import java.util.List;
+
 import cn.boommanpro.web.filter.TraceLogFilter;
+import cn.boommanpro.web.resolver.JpaSortsMethodArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * @author boommanpro
  * @date 2020/3/16 19:44
  */
 @Configuration
-public class WebServletComponentsConfiguration {
+public class WebServletComponentsConfiguration extends WebMvcConfigurationSupport {
+
+    @Autowired
+    private JpaSortsMethodArgumentResolver jpaSortsMethodArgumentResolver;
 
     @Bean
     public FilterRegistrationBean<TraceLogFilter> traceLogFilter() {
@@ -20,4 +29,9 @@ public class WebServletComponentsConfiguration {
         return registrationBean;
     }
 
+    @Override
+    protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(jpaSortsMethodArgumentResolver);
+        super.addArgumentResolvers(argumentResolvers);
+    }
 }
